@@ -1,5 +1,6 @@
 const express = require('express')
 const Projects = require('./projects-model')
+const Actions = require('../actions/actions-model')
 const {validateId, validateBody} = require('./projects-middleware')
 
 const router = express.Router();
@@ -32,6 +33,12 @@ router.put('/:id', validateBody, validateId, (req, res, next)=> {
         .then (updatedProject => {
             res.status(200).json(updatedProject)
         }) 
+        .catch(next)
+})
+
+router.delete('/:id', validateId, (req, res, next)=> {
+    Projects.remove(req.params.id)
+        .then (res.status(200).json()) 
         .catch(next)
 })
 
