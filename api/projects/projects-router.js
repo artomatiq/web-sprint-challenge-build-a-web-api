@@ -42,11 +42,21 @@ router.delete('/:id', validateId, (req, res, next)=> {
         .catch(next)
 })
 
+
+
 router.use((error, req, res, next)=>{
     res.status(error. status || 500).json({
         message: error.message || 'error in the Projects router',
         stack: error.sstack
     })
+})
+
+router.get('/:id/actions', validateId, (req, res, next)=> {
+    Projects.getProjectActions(req.params.id)
+        .then (items=> {
+            res.status(200).json(items)
+        })
+        .catch (next)
 })
 
 module.exports = router;
