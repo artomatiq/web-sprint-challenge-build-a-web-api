@@ -24,6 +24,17 @@ router.post('/', validateBody, (req, res, next)=> {
         .catch(next)
 })
 
+router.put('/:id', validateBody, validateId, (req, res, next)=> {
+    if (req.body.completed===undefined) {
+        res.status(400).json()
+    }
+    Projects.update(req.params.id, req.body)
+        .then (updatedProject => {
+            res.status(200).json(updatedProject)
+        }) 
+        .catch(next)
+})
+
 router.use((error, req, res, next)=>{
     res.status(error. status || 500).json({
         message: error.message || 'error in the Projects router',
