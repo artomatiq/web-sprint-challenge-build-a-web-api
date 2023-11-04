@@ -1,1 +1,9 @@
-// add middlewares here related to projects
+const Projects = require('./projects-model')
+
+function validateId (req, res, next) {
+    
+}
+
+module.exports({
+    validateId,
+})
