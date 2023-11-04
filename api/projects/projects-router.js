@@ -1,5 +1,6 @@
 const express = require('express')
 const Projects = require('./projects-model')
+const {validateId} = require('./projects-middleware')
 
 const router = express.Router();
 
@@ -11,7 +12,11 @@ router.get('/', (req, res, next)=> {
         .catch(next)
 })
 
-router.get('/:id', (req, res, next)=> {
+router.get('/:id', validateId, (req, res, next)=> {
+    res.status(200).json(res.project)
+})
+
+router.post('/', (req, res, next)=> {
     Projects.get(req.params.id)
         .then(item => {
             if (item) {
