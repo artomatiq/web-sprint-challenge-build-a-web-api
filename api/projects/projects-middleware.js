@@ -14,6 +14,18 @@ function validateId (req, res, next) {
         .catch (next)    
 }
 
+function validateBody (req, res, next) {
+    if (req.body.name && req.body.description) {
+        next();
+    }
+    else {
+        res.status(400).json({
+            message: 'name and description are required'
+        })
+    }
+}
+
 module.exports = {
     validateId,
+    validateBody
 }
